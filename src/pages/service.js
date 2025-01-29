@@ -1,10 +1,10 @@
 import Base from "../components/Base"
 
-const Logout=()=>{
+const Services=()=>{
     return(
         <Base>
-            <h1>Logout succssfully</h1>
+            <h1>Available Services</h1>
         </Base>
     )
 }
-export default Logout;
+export default Services;
