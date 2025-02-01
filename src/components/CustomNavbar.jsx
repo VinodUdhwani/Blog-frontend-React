@@ -21,7 +21,7 @@ const CustomNavbar=()=>{
   }
   return(
     <div>
-      <Navbar color='dark' expand="md" dark='true' className='px-5'>
+      <Navbar color='dark' expand="md" dark='true' className='px-5' >
         <NavbarBrand tag={ReactLink} to="/" >MyBlog</NavbarBrand>
         <NavbarToggler onClick={()=>{setIsOpen(!isOpen)}} />
         <Collapse isOpen={isOpen} navbar>

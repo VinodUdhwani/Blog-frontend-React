@@ -10,6 +10,7 @@ import Feeds from './components/feeds'
 import PrivateRoute from './pages/privateRoute'
 import DashBoard from './pages/user-routes/userDashboard'
 import { ToastContainer } from 'react-toastify';
+import PagePost from './pages/postpage';
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
             <Route path='/about' element={<About/>}></Route>
             <Route path='/service' element={<Services/>}></Route>
             <Route path='/feed' element={<Feeds/>}></Route>
+            <Route path='/post/:postId' element={<PagePost/>}></Route>
             <Route path='/user' element={<PrivateRoute/>}>
                 <Route path='dashboard' element={<DashBoard/>}></Route>
             </Route>
