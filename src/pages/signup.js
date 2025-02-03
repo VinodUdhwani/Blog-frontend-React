@@ -82,7 +82,7 @@ const SignUp=()=>{
                                         <Label for="name">Name</Label>
                                         <Input type="text" placeholder="Enter name" id="name" name="name" onChange={handleEvent} value={data.name}  invalid={  error.errors?.response?.data?.name ? true : false  }/>
                                         <FormFeedback>
-                                        {error.errors?.response?.data?.name}    
+                                            {error.errors?.response?.data?.name}    
                                         </FormFeedback>
                                     </FormGroup>
                                     <FormGroup>

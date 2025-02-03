@@ -9,7 +9,7 @@ const Feeds=()=>{
     const [posts,setPosts]=useState(null)
     useEffect(()=>{
         getAllPost(0,5).then((data)=>{
-            // console.log(data)
+            console.log(data)
             setPosts(data)
         }).catch(error=>{
             console.log(error)
@@ -21,6 +21,7 @@ const Feeds=()=>{
         if(pageNumber<0)
             return
         getAllPost(pageNumber,pageSize).then(data=>{
+            console.log(data)
             setPosts(data)
             window.scroll(0,0)
         }).catch(error=>{

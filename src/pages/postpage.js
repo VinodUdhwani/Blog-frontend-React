@@ -1,22 +1,50 @@
 import { Link, useParams } from "react-router-dom";
 import Base from "../components/Base"
-import { Card, CardBody, CardHeader, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Row } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, CardImg, CardSubtitle, CardText, CardTitle, Col, Container, Form, Input, Row } from "reactstrap";
 import { useEffect, useState } from "react";
 import { loadPostById } from "../services/post-service";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../services/helper";
+import { addComment, getComments } from "../services/comment-service";
 const PagePost=()=>{
     const{postId}=useParams()
+    const[userId,setUserId]=useState(null)
     const[post,setPost]=useState(null)
+    const[comment,setComment]=useState(undefined)
+    const[postComments,setPostComments]=useState(null)
     useEffect(()=>{
+
         loadPostById(postId).then(data=>{
-            console.log(data)
+            // console.log(data)
             setPost(data)
+            setUserId(data.userDto.id)
         }).catch(error=>{
             console.log(error)
             toast.error("something went wrong")
         })
+
+        getComments(postId).then(data=>{
+            // console.log(data)
+            setPostComments(data)
+        }).catch(error=>{
+            console.log(error)
+        })
+
     },[])
+
+    const handleComment=(event)=>{
+        setComment(event.target.value)
+    }
+
+    const submitComment=()=>{
+        post && (
+            addComment(comment,userId,postId).then(data=>{
+                console.log(data)
+            }).catch(error=>{
+                console.log(error)
+            }) 
+        )
+    }
 
     return(
         <Base>
@@ -47,9 +75,9 @@ const PagePost=()=>{
                                     <CardText>
                                         <h2 className="">{post.postTitle}</h2>
                                     </CardText>
-                                    <CardImg className="image-container mt-3 shadow-sm" src={BASE_URL+`/blog/posts/view/image/`+post.imageName} alt="image not available" style={{maxWidth:'50%',maxHeight:'300px'}}
+                                    {/* <CardImg className="image-container mt-3 shadow-sm" src={BASE_URL+`/blog/posts/view/image/`+post.imageName} alt="image not available" style={{maxWidth:'50%',maxHeight:'300px'}}
                                     >
-                                    </CardImg>
+                                    </CardImg> */}
                                     <CardText className="mt-3" dangerouslySetInnerHTML={{__html:post.content}}>
                                     </CardText>
                                 </CardBody>
@@ -57,6 +85,36 @@ const PagePost=()=>{
                             )
                         }
                     </Container>
+                </Col>
+           </Row>
+
+
+           <Row className="ms-3">
+                <Col className="mt-3" md={
+                    {
+                        size:5,
+                        offset:1
+                    }
+                }>
+                    <CardBody>
+                        <CardText>
+                            <h3>Comments ({post?.commentDto.length})</h3>
+                        </CardText>
+
+                        {
+                            postComments &&(
+                                postComments.map(comment=>{
+                                    return <CardText className="ms-3" key={comment.commentId}>
+                                        {comment.comment}
+                                    </CardText>
+                                })
+                            )
+                        }
+                        <Form onSubmit={submitComment}>
+                            <Input type="textarea" placeholder="Enter Comment" onChange={handleComment} name="comment" value={comment}></Input>
+                            <Button type="submit" className="mt-1">Submit</Button>
+                        </Form>
+                    </CardBody>
                 </Col>
            </Row>
         </Base>
