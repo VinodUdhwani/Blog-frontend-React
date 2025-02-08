@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../auth/auth";
 
-export const BASE_URL='http://localhost:1313';
+export const BASE_URL='http://localhost:5000';
 
 export const myAxios=axios.create({
     baseURL:BASE_URL

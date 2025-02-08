@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import {Col, Container, Row ,Pagination,PaginationItem,PaginationLink} from "reactstrap";
-import { getAllPost } from "../services/post-service";
+import { deletePost, getAllPost } from "../services/post-service";
 import Base from './Base'
 import Post from "./post";
 import { toast } from "react-toastify";
-
+import CategorySideMenu from "./categorySideMenu";
 const Feeds=()=>{
     const [posts,setPosts]=useState(null)
+    
     useEffect(()=>{
+
         getAllPost(0,5).then((data)=>{
-            console.log(data)
+            // console.log(data)
             setPosts(data)
         }).catch(error=>{
             console.log(error)
@@ -21,7 +23,7 @@ const Feeds=()=>{
         if(pageNumber<0)
             return
         getAllPost(pageNumber,pageSize).then(data=>{
-            console.log(data)
+            // console.log(data)
             setPosts(data)
             window.scroll(0,0)
         }).catch(error=>{
@@ -31,10 +33,16 @@ const Feeds=()=>{
     return(
         <Base>
            <Row>
+                <Col className="border-0 mt-5 ms-5 shadow-0" md={
+                    {
+                        size:2
+                    }    
+                }>
+                    <CategorySideMenu/>
+                </Col>
                 <Col md={
                     {
-                        size:10,
-                        offset:1,
+                        size:8,
                     }
                 }>
                     {
@@ -43,7 +51,7 @@ const Feeds=()=>{
                     
                     {
                         posts?.content.map(post=>{
-                            return <Post key={post.postId} data={post} />
+                            return <Post key={post.postId} data={post}/>
                         })
                     }
 

@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardHeader, Container, Form, FormGroup, Input, 
 import { loadCategories } from "../services/category-service";
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
-import { addPost } from "../services/post-service";
+import { addPost, uploadImage } from "../services/post-service";
 import { toast } from "react-toastify";
 import { getCurrentUser } from "../auth/auth";
 
@@ -18,6 +18,8 @@ const AddPost=()=>{
         categoryId:''
     })
 
+    const[image,setImage]=useState(null)
+
     const handleEvent=(event)=>{
         setPostData({
             ...postData,
@@ -31,6 +33,12 @@ const AddPost=()=>{
             "content":event
         })
     }
+
+    const handleImageEvent=(event)=>{
+        // console.log(event.target.files[0])
+        setImage(event.target.files[0])
+    }
+
     const submitPostData=(event)=>{
         event.preventDefault();
 
@@ -41,13 +49,21 @@ const AddPost=()=>{
             
         postData['userId']=user.id;   // add another field in postData object as per requirement
         addPost(postData).then(data=>{
-            console.log(data)
-            toast.success("post created successfully")
+            console.log(data.postId)
+
+            uploadImage(image,data.postId).then(data=>{
+                toast.success("post created successfully")
+            }).catch(error=>{
+                console.log(error)
+                toast.error("image not uploaded")
+            })
+            
             setPostData({
-                postTitle:'',
+                postTitle:null,
                 content:'',
                 categoryId:''
             })
+
         }).catch(error=>{
             console.log(error)
         })
@@ -66,7 +82,7 @@ const AddPost=()=>{
     
     return(
         <Container>
-            <Card className="shadow-sm mt-4">
+            <Card className="shadow-sm mt-4" color="dark" inverse>
 
                 {/* {JSON.stringify(postData)} */}
                 <CardHeader className="text-center">
@@ -90,6 +106,13 @@ const AddPost=()=>{
                             />
 
                         </FormGroup>
+
+                        <FormGroup>
+                            <Label for="image">Post Image</Label>
+                            <Input type="file" id="image" onChange={handleImageEvent}/>
+                        </FormGroup>
+
+
                         <FormGroup>
                             <Label for="category">Post Category</Label>
                             <Input type="select" placeholder="Enter post title here" id="title" defaultValue={0} name="categoryId" onChange={handleEvent}>

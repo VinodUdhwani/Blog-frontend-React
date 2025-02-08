@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, CardBody, CardColumns, CardHeader, CardText, Container} from 'reactstrap'
-
+import { Button, Card, CardBody, CardColumns, CardHeader, CardText, Container} from 'reactstrap'
+import {getCurrentUser, isLoggedIn} from '../auth/auth'
 function Post(props) {
     return(
         <Container className='mt-4'>
@@ -17,6 +17,13 @@ function Post(props) {
                 </CardBody>
                 <Container className='mb-2'>
                     <Link to={'/post/'+props.data.postId} className='btn btn-secondary'>Read More</Link>
+
+                    {
+                        isLoggedIn() && getCurrentUser().id==props.data.userDto.id 
+                        &&(
+                        <Button onClick={props.delete} className='ms-1' color='danger'>Delete</Button>
+                        )
+                    }
                 </Container>
             </Card>
         </Container>

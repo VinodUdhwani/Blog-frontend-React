@@ -12,3 +12,30 @@ export const getAllPost=(pageNumber,pageSize)=>{
 export const loadPostById=(postId)=>{
     return myAxios.get(`/blog/posts/${postId}`).then(response=>response.data)
 }
+
+export const uploadImage=(image,postId)=>{
+    let formData=new FormData()
+    formData.append("image",image)
+
+    return privateAxios.post(`/blog/posts/upload/image/${postId}`,formData,{
+        headers:{
+            'Content-Type':'multipart/form-data'
+        }
+    })
+    .then(response=>response.data)
+}
+
+
+export const getPostByCategory=(categoryId)=>{
+    return privateAxios.get(`/blog/posts/category/${categoryId}`).then(response=>response.data)
+}
+
+
+export const getPostByUser=(userId)=>{
+    return privateAxios.get(`/blog/posts/user/${userId}`).then(response=>response.data)
+}
+
+
+export function deletePost(postId){
+    return privateAxios.delete(`/blog/posts/${postId}`).then(response=>response)
+}
