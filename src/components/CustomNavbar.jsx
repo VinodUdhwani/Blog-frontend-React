@@ -53,6 +53,11 @@ const CustomNavbar=()=>{
               login &&(
               <>
                 <NavItem>
+                  <NavLink tag={ReactLink} to='/user/profile'>
+                    Profile
+                  </NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={ReactLink} to='/user/dashboard'>
                     {user.email}
                   </NavLink>

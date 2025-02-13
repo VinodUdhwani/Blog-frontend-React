@@ -12,25 +12,33 @@ import DashBoard from './pages/user-routes/userDashboard'
 import { ToastContainer } from 'react-toastify';
 import PagePost from './pages/postpage';
 import CategoryPost from './components/CategoryPost';
+import userContext from './pages/context/userContext';
+import UserProvider from './pages/context/UserProvider';
+import Profile from './pages/profile';
+import UpdateBlog from './pages/update-blog';
 function App() {
   return (
-    <BrowserRouter>
-    <ToastContainer position='bottom-center'/>
+    <UserProvider>
+      <BrowserRouter>
+        <ToastContainer position='bottom-center'/>
         <Routes>
-            <Route path='/' element={<HomePage/>}></Route>
-            <Route path='/login' element={<Login/>}></Route>
-            <Route path='/signup' element={<SignUp/>}></Route>
-            <Route path='/about' element={<About/>}></Route>
-            <Route path='/service' element={<Services/>}></Route>
-            <Route path='/feed' element={<Feeds/>}></Route>
-            <Route path='/category/:categoryId' element={<CategoryPost/>}></Route>
-            <Route path='/post/:postId' element={<PagePost/>}></Route>
+          <Route path='/' element={<HomePage/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/signup' element={<SignUp/>}></Route>
+          <Route path='/about' element={<About/>}></Route>
+          <Route path='/service' element={<Services/>}></Route>
+          <Route path='/feed' element={<Feeds/>}></Route>
+          <Route path='/category/:categoryId' element={<CategoryPost/>}></Route>
+          <Route path='/post/:postId' element={<PagePost/>}></Route>
 
-            <Route path='/user' element={<PrivateRoute/>}>
-                <Route path='dashboard' element={<DashBoard/>}></Route>
-            </Route>
+          <Route path='/user' element={<PrivateRoute/>}>
+              <Route path='dashboard' element={<DashBoard/>}></Route>
+              <Route path='profile' element={<Profile/>}></Route>
+              <Route path='update-blog/:blogId' element={<UpdateBlog/>}></Route>
+          </Route>
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 export default App;

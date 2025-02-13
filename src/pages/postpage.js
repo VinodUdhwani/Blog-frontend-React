@@ -34,11 +34,21 @@ const PagePost=()=>{
 
     },[])
 
+    useEffect(()=>{
+        getComments(postId).then(data=>{
+            // console.log(data)
+            setPostComments(data)
+        }).catch(error=>{
+            console.log(error)
+        })
+    },[postComments])
+
     const handleComment=(event)=>{
         setComment({
             comment:event.target.value
         })
     }
+
 
     const submitComment=(event)=>{
         event.preventDefault()
@@ -56,7 +66,9 @@ const PagePost=()=>{
             addComment(comment,getCurrentUser().id,postId).then(data=>{
                 console.log(data)
                 toast.success("comment added")
-                
+                setComment({
+                    comment:''
+                })
             }).catch(error=>{
                 console.log(error)
             }) 
@@ -119,22 +131,23 @@ const PagePost=()=>{
                         </CardText>
                     </CardBody>
 
-                    <Container>
-                        <CardBody>
-                            {
-                            postComments &&(
-                            postComments.map(comment=>{
-                                return <CardText className="ms-3" key={comment.commentId}>
-                                    {comment.comment}
-                                </CardText>
-                            })
+                        {
+                        postComments &&(
+                        postComments.map(comment=>{
+                            return (
+                                <CardBody className="border-0 mt-2">
+                                    <CardText className="ms-3" key={comment.commentId}>
+                                        {comment.comment}
+                                    </CardText>
+                                </CardBody>
                             )
-                            }
-
+                        })
+                        )
+                        }
+                        <CardBody className="mt-3">
                             <Input type="textarea" placeholder="Enter Comment" onChange={handleComment} name="comment" value={comment.comment}></Input>
-                            <Button onClick={submitComment} type="submit" className="mt-1">Submit</Button>
+                            <Button onClick={submitComment} type="submit" className="mt-1" color="primary">Submit</Button>
                         </CardBody>
-                    </Container>
                 </Col>
            </Row>
         </Base>

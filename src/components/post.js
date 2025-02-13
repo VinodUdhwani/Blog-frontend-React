@@ -24,6 +24,12 @@ function Post(props) {
                         <Button onClick={props.delete} className='ms-1' color='danger'>Delete</Button>
                         )
                     }
+                    {
+                        isLoggedIn() && getCurrentUser().id==props.data.userDto.id 
+                        &&(
+                        <Button tag={Link} to={`/user/update-blog/${props.data.postId}`} className='ms-1' color='warning'>Update</Button>
+                        )
+                    }
                 </Container>
             </Card>
         </Container>
