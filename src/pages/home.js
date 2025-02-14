@@ -7,7 +7,7 @@ const HomePage=()=>{
     return(
         (object) &&(
         <Base>
-        {JSON.stringify(object.data)}
+        {/* {JSON.stringify(object.data)} */}
             <CardBody>
                 <h2>Welcome to Blog Application</h2>
                 {/* <h3>Dear {object.user.data.id}</h3> */}
