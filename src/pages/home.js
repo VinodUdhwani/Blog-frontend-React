@@ -1,20 +1,19 @@
+import { useContext } from "react";
 import Base from "../components/Base";
 import userContext from "./context/userContext";
+import { CardBody, Container } from "reactstrap";
 const HomePage=()=>{
+    const object=useContext(userContext)
     return(
-        <userContext.Consumer>
-            {
-                (user)=>(
-                <Base> 
-                    <div>
-                        <h1>Welcome {user.name},</h1>
-                        <h1>Welcome to our blog application</h1>
-                        <h3>this is home page of blog application</h3>
-                    </div>
-                </Base>
-                )
-            }
-        </userContext.Consumer>
+        (object) &&(
+        <Base>
+        {JSON.stringify(object.data)}
+            <CardBody>
+                <h2>Welcome to Blog Application</h2>
+                {/* <h3>Dear {object.user.data.id}</h3> */}
+            </CardBody>
+        </Base>
+        )
     )
 }
 export default HomePage;

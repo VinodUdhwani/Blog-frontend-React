@@ -8,3 +8,7 @@ export const register=(user)=>{
 export const signIn=(user)=>{
     return myAxios.post('/blog/secure/login',user).then((respponse)=>respponse.data)
 }
+
+export const getUser=(userId)=>{
+    return myAxios.get(`/blog/users/${userId}`).then(response=>response.data)
+}

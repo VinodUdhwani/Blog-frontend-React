@@ -10,7 +10,7 @@ const UpdateBlog=()=>{
     const {blogId}=useParams()
     const [categories,setCategories]=useState([])
     const editor=useRef(null)
-    const[Post,setPost]=useState(null)
+    const[post,setPost]=useState(null)
 
     useEffect(()=>{
         loadCategories().then(data=>{
@@ -20,21 +20,23 @@ const UpdateBlog=()=>{
         })
 
         loadPostById(blogId).then(data=>{
-            setPost(data)
+            // console.log(data)
+            setPost({...data,categoryId:data?.categoryDto.categoryId})
         }).catch((error)=>{
             console.log(error)
         })
-    },[,blogId])
+    },[])
 
     const handleEvent=(event)=>{
+        console.log(event.target.value)
         setPost({
-            ...Post,
+            ...post,
             [event.target.name]:event.target.value
         })
     }
     const handleContent=(event)=>{
         setPost({
-            ...Post,
+            ...post,
             "content":event
         })
     }
@@ -42,8 +44,9 @@ const UpdateBlog=()=>{
     const updation=(event)=>{
         event.preventDefault()
 
-        Post && (
-            updatePost(Post.postId,Post).then(data=>{
+        post && (
+            updatePost(post.postId,post).then(data=>{
+                console.log(data)
                 toast.success("blog updated successfully")
             }).catch(error=>{
                 console.log(error)
@@ -54,7 +57,7 @@ const UpdateBlog=()=>{
     return(
     <Container>
         <Card className="shadow-sm mt-4" color="dark" inverse>
-            {/* {JSON.stringify(Post)} */}
+            {/* {JSON.stringify(post.categoryId)} */}
             <CardHeader className="text-center">
                 <h2>Update Your Blog Here !</h2>
             </CardHeader>
@@ -62,7 +65,7 @@ const UpdateBlog=()=>{
                 <Form onSubmit={updation}>
                     <FormGroup>
                         <Label for="title">Post Title</Label>
-                        <Input type="text" placeholder="Enter post title here" id="title" name="postTitle" onChange={handleEvent} value={Post?.postTitle}/>
+                        <Input type="text" placeholder="Enter post title here" id="title" name="postTitle" onChange={handleEvent} value={post?.postTitle}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="content">Post Content</Label>
@@ -70,7 +73,7 @@ const UpdateBlog=()=>{
 
                         <JoditEditor
                             ref={editor}
-                            value={Post?.content}
+                            value={post?.content}
                             name="content"
                             onChange={handleContent}
                         />
@@ -85,13 +88,19 @@ const UpdateBlog=()=>{
 
                     <FormGroup>
                         <Label for="category">Post Category</Label>
-                        <Input type="select" placeholder="Enter post title here" id="title" value={Post?.categoryDto.categoryTitle} name="categoryId" onChange={handleEvent}>
+                        <Input 
+                            type="select" 
+                            id="title" 
+                            name="categoryId" 
+                            onChange={handleEvent}
+                            value={post?.categoryId}
+                        >
                         
                             <option disabled value={0}>--Select Category--</option>
                             { 
                                 categories.map(category=>{
                                 return (
-                                    <option value={category.categoryId} key={category.categoryId}>
+                                    <option value={category.categoryId} key={category.categoryId} >
                                         {category.categoryTitle}
                                     </option>
                                 )

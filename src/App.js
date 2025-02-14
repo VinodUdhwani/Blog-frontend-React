@@ -33,7 +33,7 @@ function App() {
 
           <Route path='/user' element={<PrivateRoute/>}>
               <Route path='dashboard' element={<DashBoard/>}></Route>
-              <Route path='profile' element={<Profile/>}></Route>
+              <Route path='profile/:userId' element={<Profile/>}></Route>
               <Route path='update-blog/:blogId' element={<UpdateBlog/>}></Route>
           </Route>
         </Routes>

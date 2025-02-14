@@ -41,7 +41,7 @@ const PagePost=()=>{
         }).catch(error=>{
             console.log(error)
         })
-    },[postComments])
+    },[])
 
     const handleComment=(event)=>{
         setComment({

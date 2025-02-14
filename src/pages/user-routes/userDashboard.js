@@ -38,7 +38,6 @@ const DashBoard=()=>{
         }
 
         getPostByUser(getCurrentUser().id).then(data=>{
-            console.log(data)
             setPosts(data)
         }).catch(error=>{
             console.log(error)
