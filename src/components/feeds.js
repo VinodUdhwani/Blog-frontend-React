@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Col, Container, Row ,Pagination,PaginationItem,PaginationLink} from "reactstrap";
+import {Col, Container, Row ,Pagination,PaginationItem,PaginationLink, Button} from "reactstrap";
 import { deletePost, getAllPost } from "../services/post-service";
 import Base from './Base'
 import Post from "./post";

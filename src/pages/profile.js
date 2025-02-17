@@ -3,6 +3,7 @@ import userContext from './context/userContext'
 import { Card, CardBody,Col, Container, Row, Table } from 'reactstrap'
 import { Link, useParams } from 'react-router-dom'
 import {getUser} from '../services/user-service'
+import Base from '../components/Base'
 function Profile() {
 
   const object=useContext(userContext)
@@ -20,6 +21,7 @@ function Profile() {
 
   const viewInfo=()=>{
     return (
+    <Base>
       <Row className='mt-5'>
         
         <Col md={{
@@ -87,6 +89,7 @@ function Profile() {
           </Card>
         </Col>
       </Row>
+    </Base>
     )
   }
   return (
@@ -96,7 +99,9 @@ function Profile() {
           user ? 
           viewInfo()
           :
-          'Loading user data...'
+          <Base>
+            <h5 position='bottom-center'>Loading user data...</h5>
+          </Base>
         }
     </div>
   )

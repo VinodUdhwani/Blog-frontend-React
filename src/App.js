@@ -16,6 +16,7 @@ import userContext from './pages/context/userContext';
 import UserProvider from './pages/context/UserProvider';
 import Profile from './pages/profile';
 import UpdateBlog from './pages/update-blog';
+import { CreateCategory } from './components/createCategory';
 function App() {
   return (
     <UserProvider>
@@ -35,6 +36,7 @@ function App() {
               <Route path='dashboard' element={<DashBoard/>}></Route>
               <Route path='profile/:userId' element={<Profile/>}></Route>
               <Route path='update-blog/:blogId' element={<UpdateBlog/>}></Route>
+              <Route path='createCategory' element={<CreateCategory/>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

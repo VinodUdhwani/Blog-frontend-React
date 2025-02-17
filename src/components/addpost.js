@@ -5,6 +5,7 @@ import JoditEditor from "jodit-react";
 import { addPost, uploadImage } from "../services/post-service";
 import { toast } from "react-toastify";
 import { getCurrentUser } from "../auth/auth";
+import { Link } from "react-router-dom";
 
 const AddPost=()=>{
 
@@ -135,6 +136,7 @@ const AddPost=()=>{
                         <Container className="text-center">
                             <Button type="submit" color="primary">Create</Button>
                             <Button type="reset" color="danger" className="ms-2">Reset</Button>
+                            <Button tag={Link} to={`/user/createCategory`} className="ms-2" color="secondary">Create Category</Button>
                         </Container>
                     </Form>
                 </CardBody>
